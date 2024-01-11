@@ -1,0 +1,14 @@
+version: '3'  # The version of the Docker Compose file syntax
+
+services:    # Define the services (containers) in the application
+  web:       # Service named 'web'
+    image: nginx:latest  # Docker image to be used for this service
+    ports:
+      - "8080:80"  # Map host port 8080 to container port 80
+
+  database:  # Another service named 'database'
+    image: postgres:latest
+    environment:
+      POSTGRES_USER: myuser
+      POSTGRES_PASSWORD: mypassword
+      POSTGRES_DB: mydatabase

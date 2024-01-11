@@ -1,0 +1,27 @@
+---
+- name: Configure and deploy a web application
+  hosts: web_servers
+  become: true  # Run tasks with sudo (root) privileges
+
+  tasks:
+    - name: Ensure Nginx is installed
+      apt:
+        name: nginx
+        state: present  # Ensure the package is present
+
+    - name: Copy Nginx configuration file
+      template:
+        src: nginx.conf.j2  # Jinja2 template file
+        dest: /etc/nginx/nginx.conf
+      notify: Restart Nginx  # Notify the handler to restart Nginx if the configuration changes
+
+    - name: Ensure Nginx service is started
+      service:
+        name: nginx
+        state: started  # Ensure the service is started
+
+  handlers:
+    - name: Restart Nginx
+      service:
+        name: nginx
+        state: restarted  # Restart Nginx service on changes

@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: my-service  # Name of the service
+spec:
+  selector:
+    app: my-app  # Label selector to match pods belonging to this service
+  ports:
+    - protocol: TCP
+      port: 80  # Port on the service
+      targetPort: 8080  # Port on the pods
+  type: ClusterIP  # Type of service (other types include NodePort, LoadBalancer, and ExternalName)
